@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "https://pyrolistical.github.io/microapps/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 188);
@@ -7574,11 +7574,11 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('dl', [_c('dt', [_vm._v("Choose Microapp:")]), _vm._v(" "), _c('dd', [_c('a', {
     attrs: {
-      "href": "/"
+      "href": ".."
     }
   }, [_vm._v("Root")])]), _vm._v(" "), _c('dd', [_c('a', {
     attrs: {
-      "href": "/react-15"
+      "href": "../react-15"
     }
   }, [_vm._v("React 15")])]), _vm._v(" "), _c('dd', [_c('strong', [_vm._v("Vue 2")])])])
 }]
