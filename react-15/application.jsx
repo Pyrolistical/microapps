@@ -10,9 +10,9 @@ const nameService = NameService(localStorage)
 const MicroappSelector = (props) => {
   return <dl>
     <dt>Choose Microapp:</dt>
-    <dd><a href="/">Root</a></dd>
+    <dd><a href="..">Root</a></dd>
     <dd><strong>React 15</strong></dd>
-    <dd><a href="/vue-2">Vue 2</a></dd>
+    <dd><a href="../vue-2">Vue 2</a></dd>
   </dl>
 }
 
