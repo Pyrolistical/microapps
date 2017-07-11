@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "https://pyrolistical.github.io/microapps/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 191);
+/******/ 	return __webpack_require__(__webpack_require__.s = 195);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -256,21 +256,43 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ 191:
+/***/ 14:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony default export */ __webpack_exports__["default"] = ((localStorage) => {
+  const self = {
+    save(name) {
+      localStorage.setItem('name', name)
+    },
+
+    get() {
+      return localStorage.getItem('name')
+    }
+  }
+
+  return self
+});
+
+
+/***/ }),
+
+/***/ 195:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _vue = __webpack_require__(192);
+var _vue = __webpack_require__(196);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _root = __webpack_require__(194);
+var _root = __webpack_require__(198);
 
 var _root2 = _interopRequireDefault(_root);
 
-var _name = __webpack_require__(20);
+var _name = __webpack_require__(14);
 
 var _name2 = _interopRequireDefault(_name);
 
@@ -292,7 +314,7 @@ new _vue2.default({
 
 /***/ }),
 
-/***/ 192:
+/***/ 196:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7434,11 +7456,11 @@ setTimeout(function () {
 
 /* harmony default export */ __webpack_exports__["default"] = (Vue$3);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0), __webpack_require__(193)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0), __webpack_require__(197)))
 
 /***/ }),
 
-/***/ 193:
+/***/ 197:
 /***/ (function(module, exports) {
 
 var g;
@@ -7466,13 +7488,13 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 194:
+/***/ 198:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_root_vue__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0ca01f66_node_modules_vue_loader_lib_selector_type_template_index_0_root_vue__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_root_vue__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0ca01f66_node_modules_vue_loader_lib_selector_type_template_index_0_root_vue__ = __webpack_require__(202);
 var normalizeComponent = __webpack_require__(84)
 /* script */
 
@@ -7497,11 +7519,11 @@ var Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 195:
+/***/ 199:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__microapp_selector_vue__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__microapp_selector_vue__ = __webpack_require__(200);
 //
 //
 //
@@ -7535,11 +7557,11 @@ var Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 196:
+/***/ 200:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_01260ef4_node_modules_vue_loader_lib_selector_type_template_index_0_microapp_selector_vue__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_01260ef4_node_modules_vue_loader_lib_selector_type_template_index_0_microapp_selector_vue__ = __webpack_require__(201);
 var normalizeComponent = __webpack_require__(84)
 /* script */
 var __vue_script__ = null
@@ -7564,7 +7586,7 @@ var Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 197:
+/***/ 201:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7582,6 +7604,10 @@ var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _
     }
   }, [_vm._v("Angular 1")])]), _vm._v(" "), _c('dd', [_c('a', {
     attrs: {
+      "href": "../hyperapp-0"
+    }
+  }, [_vm._v("Hyperapp 0")])]), _vm._v(" "), _c('dd', [_c('a', {
+    attrs: {
       "href": "../react-15"
     }
   }, [_vm._v("React 15")])]), _vm._v(" "), _c('dd', [_c('strong', [_vm._v("Vue 2")])])])
@@ -7590,7 +7616,7 @@ var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _
 
 /***/ }),
 
-/***/ 198:
+/***/ 202:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7625,28 +7651,6 @@ var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _
   }, [_vm._v("Vue")]), _vm._v(" 2 Microapp.")])
 }]
 /* harmony default export */ __webpack_exports__["a"] = ({ render: render, staticRenderFns: staticRenderFns });
-
-/***/ }),
-
-/***/ 20:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony default export */ __webpack_exports__["default"] = ((localStorage) => {
-  const self = {
-    save(name) {
-      localStorage.setItem('name', name)
-    },
-
-    get() {
-      return localStorage.getItem('name')
-    }
-  }
-
-  return self
-});
-
 
 /***/ }),
 

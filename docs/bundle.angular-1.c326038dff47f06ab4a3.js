@@ -65,7 +65,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 20:
+/***/ 14:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -97,7 +97,7 @@ var _angular = __webpack_require__(87);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _name = __webpack_require__(20);
+var _name = __webpack_require__(14);
 
 var _name2 = _interopRequireDefault(_name);
 
@@ -119,7 +119,7 @@ _angular2.default.module('application', []).factory('nameService', function () {
     };
   }]
 }).component('microappSelector', {
-  template: '\n      <dl>\n        <dt>Choose Microapp:</dt>\n        <dd><a href="..">Root</a></dd>\n        <dd><strong>Angular 1</strong></dd>\n        <dd><a href="../react-15">React 15</a></dd>\n        <dd><a href="../vue-2">Vue 2</a></dd>\n      </dl>\n    '
+  template: '\n      <dl>\n        <dt>Choose Microapp:</dt>\n        <dd><a href="..">Root</a></dd>\n        <dd><strong>Angular 1</strong></dd>\n        <dd><a href="../hyperapp-0">Hyperapp 0</a></dd>\n        <dd><a href="../react-15">React 15</a></dd>\n        <dd><a href="../vue-2">Vue 2</a></dd>\n      </dl>\n    '
 });
 
 /***/ }),
