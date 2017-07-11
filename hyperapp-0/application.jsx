@@ -26,7 +26,6 @@ app({
 
   actions: {
     changeName(state, actions, {target: {value: name}}) {
-      console.log(Array(arguments))
       nameService.save(name)
       return {
         name
