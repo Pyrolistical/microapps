@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     root: './root/application.js',
     'angular-1': './angular-1/application.js',
+    'hyperapp-0': './hyperapp-0/application.jsx',
     'react-15': './react-15/application.jsx',
     'vue-2': './vue-2/application.js'
   },
@@ -15,7 +16,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.[name].[hash].js',
-    publicPath: 'https://pyrolistical.github.io/microapps/'
+    publicPath: '/'
   },
 
   module: {
@@ -23,6 +24,7 @@ module.exports = {
       {
         test: /root\/.+\.js$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
           presets: [
             'es2015'
@@ -32,6 +34,7 @@ module.exports = {
       {
         test: /angular-1\/.+\.js$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
           presets: [
             'es2015'
@@ -42,8 +45,27 @@ module.exports = {
         }
       },
       {
+        test: /hyperapp-0\/.+\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: [
+            'es2015'
+          ],
+          plugins: [
+            [
+              'transform-react-jsx',
+              {
+                pragma: 'h'
+              }
+            ]
+          ]
+        }
+      },
+      {
         test: /react-15\/.+\.jsx?$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
           presets: [
             'es2015',
@@ -54,6 +76,7 @@ module.exports = {
       {
         test: /vue-2\/.+\.js$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
           presets: [
             'es2015'
@@ -80,6 +103,13 @@ module.exports = {
       filename: 'angular-1/index.html',
       chunks: [
         'angular-1'
+      ]
+    }),
+    new HtmlWebpackPlugin({
+      template: 'hyperapp-0/index.html',
+      filename: 'hyperapp-0/index.html',
+      chunks: [
+        'hyperapp-0'
       ]
     }),
     new HtmlWebpackPlugin({
