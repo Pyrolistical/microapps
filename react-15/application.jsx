@@ -11,6 +11,7 @@ const MicroappSelector = (props) => {
   return <dl>
     <dt>Choose Microapp:</dt>
     <dd><a href="..">Root</a></dd>
+    <dd><a href="../angular-1">Angular 1</a></dd>
     <dd><strong>React 15</strong></dd>
     <dd><a href="../vue-2">Vue 2</a></dd>
   </dl>

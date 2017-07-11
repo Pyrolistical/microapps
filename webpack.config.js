@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: {
     root: './root/application.js',
+    'angular-1': './angular-1/application.js',
     'react-15': './react-15/application.jsx',
     'vue-2': './vue-2/application.js'
   },
@@ -20,11 +21,23 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /root\/.+\.js?$/,
+        test: /root\/.+\.js$/,
         loader: 'babel-loader',
         query: {
           presets: [
             'es2015'
+          ]
+        }
+      },
+      {
+        test: /angular-1\/.+\.js$/,
+        loader: 'babel-loader',
+        query: {
+          presets: [
+            'es2015'
+          ],
+          plugins: [
+            'angularjs-annotate'
           ]
         }
       },
@@ -39,7 +52,7 @@ module.exports = {
         }
       },
       {
-        test: /vue-2\/.+\.js?$/,
+        test: /vue-2\/.+\.js$/,
         loader: 'babel-loader',
         query: {
           presets: [
@@ -48,7 +61,7 @@ module.exports = {
         }
       },
       {
-        test: /vue-2\/.+\.vue?$/,
+        test: /vue-2\/.+\.vue$/,
         loader: 'vue-loader'
       }
     ]
@@ -60,6 +73,13 @@ module.exports = {
       filename: 'index.html',
       chunks: [
         'root'
+      ]
+    }),
+    new HtmlWebpackPlugin({
+      template: 'angular-1/index.html',
+      filename: 'angular-1/index.html',
+      chunks: [
+        'angular-1'
       ]
     }),
     new HtmlWebpackPlugin({
