@@ -176,7 +176,6 @@ var Name = function Name(_ref, children) {
     changeName: function changeName(state, actions, _ref2) {
       var name = _ref2.target.value;
 
-      console.log(Array(arguments));
       nameService.save(name);
       return {
         name: name
