@@ -31,7 +31,6 @@
     "create-react-class": "15.6.0",
     "hyperapp": "0.10.0",
     "react": "15.6.1",
-    "react-create-class": "1.0.0",
     "react-dom": "15.6.1",
     "vue": "2.3.4"
   }
