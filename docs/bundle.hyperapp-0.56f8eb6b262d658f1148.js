@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "https://pyrolistical.github.io/microapps/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 89);
+/******/ 	return __webpack_require__(__webpack_require__.s = 90);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -87,13 +87,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 89:
+/***/ 50:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = h;
+var i
+var stack = []
+
+function h(tag, props) {
+  var node
+  var children = []
+
+  for (i = arguments.length; i-- > 2; ) {
+    stack.push(arguments[i])
+  }
+
+  while (stack.length) {
+    if (Array.isArray((node = stack.pop()))) {
+      for (i = node.length; i--; ) {
+        stack.push(node[i])
+      }
+    } else if (node != null && node !== true && node !== false) {
+      children.push(typeof node === "number" ? (node = node + "") : node)
+    }
+  }
+
+  return typeof tag === "string"
+    ? {
+        tag: tag,
+        props: props || {},
+        children: children
+      }
+    : tag(props, children)
+}
+
+
+/***/ }),
+
+/***/ 90:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _hyperapp = __webpack_require__(90);
+var _hyperapp = __webpack_require__(91);
 
 var _name = __webpack_require__(14);
 
@@ -214,12 +252,12 @@ var Name = function Name(_ref, children) {
 
 /***/ }),
 
-/***/ 90:
+/***/ 91:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__h__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__h__ = __webpack_require__(50);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_0__h__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(92);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "app", function() { return __WEBPACK_IMPORTED_MODULE_1__app__["a"]; });
@@ -229,172 +267,140 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 91:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = h;
-function h(tag, data) {
-  var node
-  var stack = []
-  var children = []
-
-  for (var i = arguments.length; i-- > 2; ) {
-    stack[stack.length] = arguments[i]
-  }
-
-  while (stack.length) {
-    if (Array.isArray((node = stack.pop()))) {
-      for (var i = node.length; i--; ) {
-        stack[stack.length] = node[i]
-      }
-    } else if (node != null && node !== true && node !== false) {
-      if (typeof node === "number") {
-        node = node + ""
-      }
-      children[children.length] = node
-    }
-  }
-
-  return typeof tag === "string"
-    ? {
-        tag: tag,
-        data: data || {},
-        children: children
-      }
-    : tag(data, children)
-}
-
-
-/***/ }),
-
 /***/ 92:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = app;
-function app(app) {
-  var state = {}
-  var actions = {}
-  var events = {}
-  var mixins = []
-  var view = app.view
-  var root = app.root || document.body
-  var node
-  var element
-  var locked = false
-  var loaded = false
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__h__ = __webpack_require__(50);
 
-  for (var i = -1; i < mixins.length; i++) {
-    var mixin = mixins[i] ? mixins[i](emit) : app
 
-    Object.keys(mixin.events || []).map(function(key) {
-      events[key] = (events[key] || []).concat(mixin.events[key])
-    })
+var lifecycleCallbackStack = []
 
-    if (mixin.state != null) {
-      state = merge(state, mixin.state)
-    }
+function app(props) {
+  var skipRender
+  var appView = props.view
+  var appState = props.state
+  var appActions = {}
+  var appRoot = props.root || document.body
+  var element = appRoot.children[0]
+  var node = hydrate(element, [].map)
 
-    mixins = mixins.concat(mixin.mixins || [])
-
-    initialize(actions, mixin.actions)
+  if (typeof props === "function") {
+    return props(app)
   }
 
-  node = hydrate((element = root.querySelector("[data-ssr]")), [].map)
+  requestRender(createActions(appActions, props.actions, []))
 
-  repaint(emit("init"))
+  return appActions
 
-  return emit
-
-  function repaint() {
-    if (!locked) {
-      requestAnimationFrame(render, (locked = !locked))
+  function requestRender() {
+    if (appView && !skipRender) {
+      requestAnimationFrame(render, (skipRender = !skipRender))
     }
+  }
+
+  function render(cb) {
+    element = patch(
+      appRoot,
+      element,
+      node,
+      (node = appView(appState, appActions)),
+      (skipRender = !skipRender)
+    )
+    while ((cb = lifecycleCallbackStack.pop())) cb()
   }
 
   function hydrate(element, map) {
-    return element == null
-      ? element
-      : {
-          tag: element.tagName,
-          data: {},
-          children: map.call(element.childNodes, function(element) {
-            hydrate(element, map)
-          })
-        }
-  }
-
-  function render() {
-    element = patch(
-      root,
-      element,
-      node,
-      (node = emit("render", view)(state, actions))
+    return (
+      element &&
+      __WEBPACK_IMPORTED_MODULE_0__h__["a" /* h */](
+        element.tagName.toLowerCase(),
+        {},
+        map.call(element.childNodes, function(element) {
+          return element.nodeType === 3
+            ? element.nodeValue
+            : hydrate(element, map)
+        })
+      )
     )
-
-    locked = !locked
-
-    if (!loaded) {
-      emit("loaded", (loaded = true))
-    }
   }
 
-  function initialize(namespace, children, lastName) {
-    Object.keys(children || []).map(function(key) {
-      var action = children[key]
-      var name = lastName ? lastName + "." + key : key
-
-      if (typeof action === "function") {
-        namespace[key] = function(data) {
-          var result = action(
-            state,
-            actions,
-            emit("action", {
-              name: name,
-              data: data
-            }).data
+  function createActions(actions, withActions, lastPath) {
+    Object.keys(withActions || {}).map(function(name) {
+      return typeof withActions[name] === "function"
+        ? (actions[name] = function(data) {
+            return typeof (data = withActions[name](
+              getPath(lastPath, appState),
+              getPath(lastPath, appActions),
+              data
+            )) === "function"
+              ? data(update)
+              : update(data)
+          })
+        : createActions(
+            actions[name] || (actions[name] = {}),
+            withActions[name],
+            lastPath.concat(name)
           )
-
-          if (result != null && result.then == null) {
-            repaint((state = merge(state, emit("update", result))))
-          }
-
-          return result
-        }
-      } else {
-        initialize(namespace[key] || (namespace[key] = {}), action, name)
-      }
-    })
-  }
-
-  function emit(name, data) {
-    ;(events[name] || []).map(function(cb) {
-      var result = cb(state, actions, data)
-      if (result != null) {
-        data = result
-      }
     })
 
-    return data
+    function update(withState) {
+      if (typeof withState === "function") {
+        return update(withState(getPath(lastPath, appState)))
+      }
+      if (
+        withState &&
+        (withState = setPath(
+          lastPath,
+          merge(getPath(lastPath, appState), withState),
+          appState
+        ))
+      ) {
+        requestRender((appState = withState))
+      }
+      return appState
+    }
   }
 
-  function merge(a, b) {
-    if (typeof b !== "object") {
-      return b
+  function set(prop, value, source) {
+    var target = merge(source)
+    target[prop] = value
+    return target
+  }
+
+  function getPath(paths, source) {
+    return paths.length === 0
+      ? source
+      : source && getPath(paths.slice(1), source[paths[0]])
+  }
+
+  function setPath(paths, value, source) {
+    var name = paths[0]
+    return paths.length === 0
+      ? value
+      : set(
+          name,
+          paths.length > 1
+            ? setPath(
+                paths.slice(1),
+                value,
+                source && name in source ? source[name] : {}
+              )
+            : value,
+          source
+        )
+  }
+
+  function merge(target, source) {
+    var result = {}
+    for (var i in target) {
+      result[i] = target[i]
     }
-
-    var obj = {}
-
-    for (var i in a) {
-      obj[i] = a[i]
+    for (var i in source) {
+      result[i] = source[i]
     }
-
-    for (var i in b) {
-      obj[i] = b[i]
-    }
-
-    return obj
+    return result
   }
 
   function createElement(node, isSVG) {
@@ -405,29 +411,28 @@ function app(app) {
         ? document.createElementNS("http://www.w3.org/2000/svg", node.tag)
         : document.createElement(node.tag)
 
+      if (node.props && node.props.oncreate) {
+        lifecycleCallbackStack.push(function() {
+          node.props.oncreate(element)
+        })
+      }
+
       for (var i = 0; i < node.children.length; ) {
         element.appendChild(createElement(node.children[i++], isSVG))
       }
 
-      for (var i in node.data) {
-        if (i === "oncreate") {
-          node.data[i](element)
-        } else if (i === "oninsert") {
-          setTimeout(node.data[i], 0, element)
-        } else {
-          setElementData(element, i, node.data[i])
-        }
+      for (var i in node.props) {
+        setProp(element, i, node.props[i])
       }
     }
-
     return element
   }
 
-  function setElementData(element, name, value, oldValue) {
+  function setProp(element, name, value, oldValue) {
     if (name === "key") {
     } else if (name === "style") {
-      for (var i in merge(oldValue, (value = value || {}))) {
-        element.style[i] = value[i] || ""
+      for (var name in merge(oldValue, (value = value || {}))) {
+        element.style[name] = value[name] || ""
       }
     } else {
       try {
@@ -444,54 +449,65 @@ function app(app) {
     }
   }
 
-  function updateElementData(element, oldData, data) {
-    for (var name in merge(oldData, data)) {
-      var value = data[name]
+  function updateElement(element, oldProps, props) {
+    for (var name in merge(oldProps, props)) {
+      var value = props[name]
       var oldValue =
-        name === "value" || name === "checked" ? element[name] : oldData[name]
+        name === "value" || name === "checked" ? element[name] : oldProps[name]
 
-      if (name === "onupdate" && value) {
-        value(element)
-      } else if (value !== oldValue) {
-        setElementData(element, name, value, oldValue)
+      if (value !== oldValue) {
+        setProp(element, name, value, oldValue)
       }
     }
-  }
 
-  function getKey(node) {
-    if (node && (node = node.data)) {
-      return node.key
+    if (props && props.onupdate) {
+      lifecycleCallbackStack.push(function() {
+        props.onupdate(element, oldProps)
+      })
     }
   }
 
-  function removeElement(parent, element, node) {
-    ;((node.data && node.data.onremove) || removeChild)(element, removeChild)
-    function removeChild() {
+  function removeElement(parent, element, props) {
+    if (
+      props &&
+      props.onremove &&
+      typeof (props = props.onremove(element)) === "function"
+    ) {
+      props(remove)
+    } else {
+      remove()
+    }
+
+    function remove() {
       parent.removeChild(element)
     }
   }
 
-  function patch(parent, element, oldNode, node) {
+  function getKey(node) {
+    return node && (node = node.props) && node.key
+  }
+
+  function patch(parent, element, oldNode, node, isSVG, nextSibling) {
     if (oldNode == null) {
-      element = parent.insertBefore(createElement(node), element)
-    } else if (node.tag && node.tag === oldNode.tag) {
-      updateElementData(element, oldNode.data, node.data)
+      element = parent.insertBefore(createElement(node, isSVG), element)
+    } else if (node.tag != null && node.tag === oldNode.tag) {
+      updateElement(element, oldNode.props, node.props)
+
+      isSVG = isSVG || node.tag === "svg"
 
       var len = node.children.length
       var oldLen = oldNode.children.length
-      var reusableChildren = {}
+      var oldKeyed = {}
       var oldElements = []
-      var newKeys = {}
+      var keyed = {}
 
       for (var i = 0; i < oldLen; i++) {
-        var oldElement = element.childNodes[i]
-        oldElements[i] = oldElement
-
+        var oldElement = (oldElements[i] = element.childNodes[i])
         var oldChild = oldNode.children[i]
         var oldKey = getKey(oldChild)
 
         if (null != oldKey) {
-          reusableChildren[oldKey] = [oldElement, oldChild]
+          oldKeyed[oldKey] = [oldElement, oldChild]
         }
       }
 
@@ -504,34 +520,34 @@ function app(app) {
         var newChild = node.children[j]
 
         var oldKey = getKey(oldChild)
-        if (newKeys[oldKey]) {
+        if (keyed[oldKey]) {
           i++
           continue
         }
 
         var newKey = getKey(newChild)
 
-        var reusableChild = reusableChildren[newKey] || []
+        var keyedNode = oldKeyed[newKey] || []
 
         if (null == newKey) {
           if (null == oldKey) {
-            patch(element, oldElement, oldChild, newChild)
+            patch(element, oldElement, oldChild, newChild, isSVG)
             j++
           }
           i++
         } else {
           if (oldKey === newKey) {
-            patch(element, reusableChild[0], reusableChild[1], newChild)
+            patch(element, keyedNode[0], keyedNode[1], newChild, isSVG)
             i++
-          } else if (reusableChild[0]) {
-            element.insertBefore(reusableChild[0], oldElement)
-            patch(element, reusableChild[0], reusableChild[1], newChild)
+          } else if (keyedNode[0]) {
+            element.insertBefore(keyedNode[0], oldElement)
+            patch(element, keyedNode[0], keyedNode[1], newChild, isSVG)
           } else {
-            patch(element, oldElement, null, newChild)
+            patch(element, oldElement, null, newChild, isSVG)
           }
 
           j++
-          newKeys[newKey] = newChild
+          keyed[newKey] = newChild
         }
       }
 
@@ -539,23 +555,29 @@ function app(app) {
         var oldChild = oldNode.children[i]
         var oldKey = getKey(oldChild)
         if (null == oldKey) {
-          removeElement(element, oldElements[i], oldChild)
+          removeElement(element, oldElements[i], oldChild.props)
         }
         i++
       }
 
-      for (var i in reusableChildren) {
-        var reusableChild = reusableChildren[i]
-        var reusableNode = reusableChild[1]
-        if (!newKeys[reusableNode.data.key]) {
-          removeElement(element, reusableChild[0], reusableNode)
+      for (var i in oldKeyed) {
+        var keyedNode = oldKeyed[i]
+        var reusableNode = keyedNode[1]
+        if (!keyed[reusableNode.props.key]) {
+          removeElement(element, keyedNode[0], reusableNode.props)
         }
       }
-    } else if (node !== oldNode) {
-      var i = element
-      parent.replaceChild((element = createElement(node)), i)
+    } else if (element && node !== element.nodeValue) {
+      if (typeof node === "string" && typeof oldNode === "string") {
+        element.nodeValue = node
+      } else {
+        element = parent.insertBefore(
+          createElement(node, isSVG),
+          (nextSibling = element)
+        )
+        removeElement(parent, nextSibling, oldNode.props)
+      }
     }
-
     return element
   }
 }

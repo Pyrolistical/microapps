@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "https://pyrolistical.github.io/microapps/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 86);
+/******/ 	return __webpack_require__(__webpack_require__.s = 87);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -87,13 +87,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 86:
+/***/ 87:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _angular = __webpack_require__(87);
+var _angular = __webpack_require__(88);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -124,16 +124,16 @@ _angular2.default.module('application', []).factory('nameService', function () {
 
 /***/ }),
 
-/***/ 87:
+/***/ 88:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(88);
+__webpack_require__(89);
 module.exports = angular;
 
 
 /***/ }),
 
-/***/ 88:
+/***/ 89:
 /***/ (function(module, exports) {
 
 /**

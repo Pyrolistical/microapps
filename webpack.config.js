@@ -16,7 +16,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.[name].[hash].js',
-    publicPath: '/'
+    publicPath: process.env.NODE_ENV === 'production'
+      ? 'https://pyrolistical.github.io/microapps/'
+      : '/'
   },
 
   module: {
