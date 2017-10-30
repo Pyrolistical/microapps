@@ -60,12 +60,25 @@
 /******/ 	__webpack_require__.p = "https://pyrolistical.github.io/microapps/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 87);
+/******/ 	return __webpack_require__(__webpack_require__.s = 90);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 14:
+/***/ 12:
+/***/ (function(module, exports) {
+
+module.exports = {
+	"angular-1": "Angular 1",
+	"hyperapp-0": "Hyperapp 0",
+	"react-15": "React 15",
+	"surplus-0": "Surplus 0",
+	"vue-2": "Vue 2"
+};
+
+/***/ }),
+
+/***/ 13:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87,17 +100,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 87:
+/***/ 90:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _angular = __webpack_require__(88);
+var _angular = __webpack_require__(91);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _name = __webpack_require__(14);
+var _microapps = __webpack_require__(12);
+
+var _microapps2 = _interopRequireDefault(_microapps);
+
+var _name = __webpack_require__(13);
 
 var _name2 = _interopRequireDefault(_name);
 
@@ -119,21 +136,25 @@ _angular2.default.module('application', []).factory('nameService', function () {
     };
   }]
 }).component('microappSelector', {
-  template: '\n      <dl>\n        <dt>Choose Microapp:</dt>\n        <dd><a href="..">Root</a></dd>\n        <dd><strong>Angular 1</strong></dd>\n        <dd><a href="../hyperapp-0">Hyperapp 0</a></dd>\n        <dd><a href="../react-15">React 15</a></dd>\n        <dd><a href="../vue-2">Vue 2</a></dd>\n      </dl>\n    '
+  controller: function controller() {
+    this.microapps = _microapps2.default;
+  },
+
+  template: '\n      <dl>\n        <dt>Choose Microapp:</dt>\n        <dd><a href="..">Root</a></dd>\n        <dd ng-repeat="(slug, name) in $ctrl.microapps">\n          <strong ng-if="slug === \'angular-1\'">{{name}}</strong>\n          <a ng-if="slug !== \'angular-1\'" href="../{{slug}}">{{name}}</a>\n        </dd>\n      </dl>\n    '
 });
 
 /***/ }),
 
-/***/ 88:
+/***/ 91:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(89);
+__webpack_require__(92);
 module.exports = angular;
 
 
 /***/ }),
 
-/***/ 89:
+/***/ 92:
 /***/ (function(module, exports) {
 
 /**

@@ -3,18 +3,21 @@ import {Component} from 'react'
 import createClass from 'create-react-class'
 import ReactDOM from 'react-dom'
 
+import microapps from '../microapps.json'
 import NameService from '../services/name'
 
 const nameService = NameService(localStorage)
 
-const MicroappSelector = (props) => {
+const MicroappSelector = (props, children) => {
   return <dl>
     <dt>Choose Microapp:</dt>
     <dd><a href="..">Root</a></dd>
-    <dd><a href="../angular-1">Angular 1</a></dd>
-    <dd><a href="../hyperapp-0">Hyperapp 0</a></dd>
-    <dd><strong>React 15</strong></dd>
-    <dd><a href="../vue-2">Vue 2</a></dd>
+    {Object.keys(microapps).map((slug) => {
+      const name = microapps[slug]
+      return slug === 'react-15'
+        ? <dd><strong>{name}</strong></dd>
+        : <dd><a href={`../${slug}`}>{name}</a></dd>
+    })}
   </dl>
 }
 

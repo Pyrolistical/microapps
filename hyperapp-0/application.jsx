@@ -1,5 +1,6 @@
 import {h, app} from 'hyperapp'
 
+import microapps from '../microapps.json'
 import NameService from '../services/name'
 
 const nameService = NameService(localStorage)
@@ -8,10 +9,12 @@ const MicroappSelector = (props, children) => {
   return <dl>
     <dt>Choose Microapp:</dt>
     <dd><a href="..">Root</a></dd>
-    <dd><a href="../angular-1">Angular 1</a></dd>
-    <dd><strong>Hyperapp 0</strong></dd>
-    <dd><a href="../react-15">React 15</a></dd>
-    <dd><a href="../vue-2">Vue 2</a></dd>
+    {Object.keys(microapps).map((slug) => {
+      const name = microapps[slug]
+      return slug === 'hyperapp-0'
+        ? <dd><strong>{name}</strong></dd>
+        : <dd><a href={`../${slug}`}>{name}</a></dd>
+    })}
   </dl>
 }
 

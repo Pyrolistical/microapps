@@ -60,12 +60,25 @@
 /******/ 	__webpack_require__.p = "https://pyrolistical.github.io/microapps/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 90);
+/******/ 	return __webpack_require__(__webpack_require__.s = 93);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 14:
+/***/ 12:
+/***/ (function(module, exports) {
+
+module.exports = {
+	"angular-1": "Angular 1",
+	"hyperapp-0": "Hyperapp 0",
+	"react-15": "React 15",
+	"surplus-0": "Surplus 0",
+	"vue-2": "Vue 2"
+};
+
+/***/ }),
+
+/***/ 13:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87,7 +100,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 50:
+/***/ 51:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125,15 +138,19 @@ function h(tag, props) {
 
 /***/ }),
 
-/***/ 90:
+/***/ 93:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _hyperapp = __webpack_require__(91);
+var _hyperapp = __webpack_require__(94);
 
-var _name = __webpack_require__(14);
+var _microapps = __webpack_require__(12);
+
+var _microapps2 = _interopRequireDefault(_microapps);
+
+var _name = __webpack_require__(13);
 
 var _name2 = _interopRequireDefault(_name);
 
@@ -159,42 +176,26 @@ var MicroappSelector = function MicroappSelector(props, children) {
         'Root'
       )
     ),
-    (0, _hyperapp.h)(
-      'dd',
-      null,
-      (0, _hyperapp.h)(
-        'a',
-        { href: '../angular-1' },
-        'Angular 1'
-      )
-    ),
-    (0, _hyperapp.h)(
-      'dd',
-      null,
-      (0, _hyperapp.h)(
-        'strong',
+    Object.keys(_microapps2.default).map(function (slug) {
+      var name = _microapps2.default[slug];
+      return slug === 'hyperapp-0' ? (0, _hyperapp.h)(
+        'dd',
         null,
-        'Hyperapp 0'
-      )
-    ),
-    (0, _hyperapp.h)(
-      'dd',
-      null,
-      (0, _hyperapp.h)(
-        'a',
-        { href: '../react-15' },
-        'React 15'
-      )
-    ),
-    (0, _hyperapp.h)(
-      'dd',
-      null,
-      (0, _hyperapp.h)(
-        'a',
-        { href: '../vue-2' },
-        'Vue 2'
-      )
-    )
+        (0, _hyperapp.h)(
+          'strong',
+          null,
+          name
+        )
+      ) : (0, _hyperapp.h)(
+        'dd',
+        null,
+        (0, _hyperapp.h)(
+          'a',
+          { href: '../' + slug },
+          name
+        )
+      );
+    })
   );
 };
 
@@ -252,14 +253,14 @@ var Name = function Name(_ref, children) {
 
 /***/ }),
 
-/***/ 91:
+/***/ 94:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__h__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__h__ = __webpack_require__(51);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_0__h__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(95);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "app", function() { return __WEBPACK_IMPORTED_MODULE_1__app__["a"]; });
 
 
@@ -267,12 +268,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 92:
+/***/ 95:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = app;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__h__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__h__ = __webpack_require__(51);
 
 
 var lifecycleCallbackStack = []

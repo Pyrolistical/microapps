@@ -10,6 +10,7 @@ module.exports = {
     'angular-1': './angular-1/application.js',
     'hyperapp-0': './hyperapp-0/application.jsx',
     'react-15': './react-15/application.jsx',
+    'surplus-0': './surplus-0/application.jsx',
     'vue-2': './vue-2/application.js'
   },
 
@@ -23,6 +24,10 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
       {
         test: /root\/.+\.js$/,
         loader: 'babel-loader',
@@ -76,6 +81,11 @@ module.exports = {
         }
       },
       {
+        test: /surplus-0\/.+\.jsx?$/,
+        loader: 'surplus-loader',
+        exclude: /node_modules/
+      },
+      {
         test: /vue-2\/.+\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
@@ -119,6 +129,13 @@ module.exports = {
       filename: 'react-15/index.html',
       chunks: [
         'react-15'
+      ]
+    }),
+    new HtmlWebpackPlugin({
+      template: 'surplus-0/index.html',
+      filename: 'surplus-0/index.html',
+      chunks: [
+        'surplus-0'
       ]
     }),
     new HtmlWebpackPlugin({

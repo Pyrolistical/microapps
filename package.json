@@ -22,6 +22,7 @@
     "css-loader": "0.28.4",
     "html-webpack-plugin": "2.29.0",
     "rimraf": "2.6.1",
+    "surplus-loader": "0.4.5",
     "vue-loader": "13.0.0",
     "vue-template-compiler": "2.3.4",
     "webpack": "3.1.0",
@@ -33,6 +34,7 @@
     "hyperapp": "0.14.0",
     "react": "15.6.1",
     "react-dom": "15.6.1",
+    "surplus": "0.4.3",
     "vue": "2.3.4"
   }
 }

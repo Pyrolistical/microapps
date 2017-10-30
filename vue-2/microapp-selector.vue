@@ -2,9 +2,21 @@
   <dl>
     <dt>Choose Microapp:</dt>
     <dd><a href="..">Root</a></dd>
-    <dd><a href="../angular-1">Angular 1</a></dd>
-    <dd><a href="../hyperapp-0">Hyperapp 0</a></dd>
-    <dd><a href="../react-15">React 15</a></dd>
-    <dd><strong>Vue 2</strong></dd>
+    <dd v-for="(name, slug) in microapps">
+      <strong v-if="slug === 'vue-2'">{{name}}</strong>
+      <a v-else v-bind:href="`../${slug}`">{{name}}</a>
+    </dd>
   </dl>
 </template>
+
+<script>
+import microapps from '../microapps.json'
+
+export default {
+  data() {
+    return {
+      microapps
+    }
+  }
+}
+</script>
