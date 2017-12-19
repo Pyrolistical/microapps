@@ -11,12 +11,12 @@ const nameService = NameService(localStorage)
 const MicroappSelector = (props, children) => {
   return <dl>
     <dt>Choose Microapp:</dt>
-    <dd><a href="..">Root</a></dd>
+    <dd key="root"><a href="..">Root</a></dd>
     {Object.keys(microapps).map((slug) => {
       const name = microapps[slug]
       return slug === 'react-15'
-        ? <dd><strong>{name}</strong></dd>
-        : <dd><a href={`../${slug}`}>{name}</a></dd>
+        ? <dd key={slug}><strong>{name}</strong></dd>
+        : <dd key={slug}><a href={`../${slug}`}>{name}</a></dd>
     })}
   </dl>
 }
