@@ -3,4 +3,4 @@ Microapps
 
 Like Microservices? Then maybe Microapps are for you.
 
-# [Demo](https://pyrolistical.github.com/microapps)
+# [Demo](https://microapps.netlify.com)

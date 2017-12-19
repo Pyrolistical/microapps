@@ -7,8 +7,7 @@
     "start": "webpack-dev-server --progress --colors --history-api-fallback --host localhost --port 8080",
     "clean": "rimraf dist/",
     "prebuild": "npm run clean",
-    "build": "NODE_ENV=production webpack --progress --colors",
-    "postbuild": "rimraf docs/ && mv dist docs"
+    "build": "NODE_ENV=production webpack --progress --colors"
   },
   "author": "Ronald Chen",
   "license": "ISC",
