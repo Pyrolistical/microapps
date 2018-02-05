@@ -32,7 +32,7 @@ const Root = createClass({
     }
   },
 
-  changeName({target: {value: name}}) {
+  changeName(name) {
     this.setState({
       name
     })
@@ -43,7 +43,15 @@ const Root = createClass({
     return <div>
       <MicroappSelector />
       <p>This is a <a href="https://facebook.github.io/react/">React</a> 15 Microapp.</p>
-      <p>Tell me your name and I'll remember it between Microapps: <Name name={this.state.name} onChange={this.changeName} /></p>
+      <p>Tell me your name and I'll remember it between Microapps:
+        <Name 
+          name={this.state.name} 
+          onChange={
+            (target: {value: name}}) =>
+              this.changeName(name)
+          } 
+        />
+      </p>
     </div>
   }
 })
